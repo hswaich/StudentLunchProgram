@@ -1,4 +1,4 @@
-﻿body {
+body {
     padding-top: 50px;
     padding-bottom: 20px;
     background: url('/Images/1.png') no-repeat center center fixed;
@@ -53,6 +53,11 @@
 .customMessage {
     color: #FFA500;
 }
+
+.fa-info-circle {
+color:#337ab7;
+}
+
 
 .fa-info-circle:hover {
 color: orangered;

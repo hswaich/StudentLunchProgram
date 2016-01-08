@@ -1,0 +1,63 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Slp", "Slp\Slp.csproj", "{A2D2D378-4DE0-4154-9AA2-B9726E747308}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PublishScripts", "PublishScripts", "{672E3839-66E6-49AD-B4AF-0220145C3FFB}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\AzureVMPublishModule.psm1 = PublishScripts\AzureVMPublishModule.psm1
+		PublishScripts\Publish-WebApplicationVM.ps1 = PublishScripts\Publish-WebApplicationVM.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configurations", "Configurations", "{00FF8B06-A1AA-460D-80BB-50524074F492}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\Configurations\Slp-WAWS-dev.json = PublishScripts\Configurations\Slp-WAWS-dev.json
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{6721AFB6-BD0B-46E6-B749-FC5DB8A602CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{70A88C39-C301-4541-A91C-E1614EAB8516}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A2D2D378-4DE0-4154-9AA2-B9726E747308}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2D2D378-4DE0-4154-9AA2-B9726E747308}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2D2D378-4DE0-4154-9AA2-B9726E747308}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2D2D378-4DE0-4154-9AA2-B9726E747308}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6721AFB6-BD0B-46E6-B749-FC5DB8A602CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6721AFB6-BD0B-46E6-B749-FC5DB8A602CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6721AFB6-BD0B-46E6-B749-FC5DB8A602CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6721AFB6-BD0B-46E6-B749-FC5DB8A602CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70A88C39-C301-4541-A91C-E1614EAB8516}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70A88C39-C301-4541-A91C-E1614EAB8516}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70A88C39-C301-4541-A91C-E1614EAB8516}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70A88C39-C301-4541-A91C-E1614EAB8516}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{00FF8B06-A1AA-460D-80BB-50524074F492} = {672E3839-66E6-49AD-B4AF-0220145C3FFB}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 4
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://swaich.visualstudio.com/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Slp\\Slp.csproj
+		SccProjectName1 = Slp
+		SccLocalPath1 = Slp
+		SccProjectUniqueName2 = Application\\Application.csproj
+		SccProjectName2 = Application
+		SccLocalPath2 = Application
+		SccProjectUniqueName3 = Domain\\Domain.csproj
+		SccProjectName3 = Domain
+		SccLocalPath3 = Domain
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,125 @@
+﻿@model Guid
+<br />
+<br />
+<div class="well">
+    <div id="LoaderDiv">
+        <div class="row">
+            <div class="col-lg-offset-5 col-md-1">
+                <i class="fa fa-cog fa-spin fa-2x"></i>
+            </div>
+        </div>
+    </div>
+
+    <div id="EatApp" class="hideDiv">
+        <div id="divStep0" class="div-Steps">
+            <h4>USDA Non-Discrimination Statement</h4>
+            <p>
+                In accordance with Federal civil rights law and U.S. Department of Agriculture (USDA)
+                civil rights regulations and policies, the USDA, its Agencies, offices, and employees,
+                and institutions participating in or administering USDA programs are prohibited from
+                discriminating based on race, color, national origin, sex, disability, age, or reprisal or retaliation for prior civil rights
+                activity in any program or activity conducted or funded by USDA.
+            </p>
+            <p>
+                Persons with disabilities who require alternative means of communication for program
+                information (e.g. Braille, large print, audiotape, American Sign Language, etc.), should
+                contact the Agency (State or local) where they applied for benefits. Individuals who are
+                deaf, hard of hearing or have speech disabilities may contact USDA through the
+                Federal Relay Service at (800) 877-8339. Additionally, program information may be
+                made available in languages other than English.
+            </p>
+            <p>
+                To file a program complaint of discrimination, complete the <a href="http://www.ascr.usda.gov/complaint_filing_cust.html">USDA Program Discrimination Complaint Form</a>, (AD-3027) found online at:
+                http://www.ascr.usda.gov/complaint_filing_cust.html, and at any USDA office, or write a
+                letter addressed to USDA and provide in the letter all of the information requested in
+                the form. To request a copy of the complaint form, call (866) 632-9992. Submit your
+                completed form or letter to USDA by:
+            </p>
+            <p>
+                <address>
+                    <strong>U.S. Department of Agriculture</strong> <br />
+                    Office of the Assistant Secretary for Civil Rights <br />
+                    1400 Independence Avenue, SW <br />
+                    Washington, D.C. 20250-9410 <br />
+                    <abbr title="Fax">Fax:</abbr> (202) 690-7442 <br />
+                    <a href="mailto:#">program.intake@usda.gov</a>
+                </address>
+            </p>
+
+            This institution is an equal opportunity provider.
+            <h4>Use of Information Statement</h4>
+            <p>
+                “The Richard B. Russell National School Lunch Act requires the information on
+                this application. You do not have to give the information, but if you do not submit
+                all needed information, we cannot approve your child for free or reduced price
+                meals. You must include the last four digits of the social security number of the
+                adult household member who signs the application. The social security number
+                is not required when you apply on behalf of a foster child or you list a
+                Supplemental Nutrition Assistance Program (SNAP), Temporary Assistance for
+                Needy Families (TANF) Program or Food Distribution Program on Indian
+                Reservations (FDPIR) case number or other FDPIR identifier for your child or
+                when you indicate that the adult household member signing the application does
+                not have a social security number. We will use your information to determine if
+                your child is eligible for free or reduced price meals, and for administration and
+                enforcement of the lunch and breakfast programs.
+            </p>
+            <p>
+                We may share your eligibility information with education, health, and nutrition
+                programs to help them evaluate, fund, or determine benefits for their programs,
+                auditors for program reviews, and law enforcement officials to help them look
+                into violations of program rules.”
+            </p>
+            <p>
+                <strong>Attesting Statement</strong> – to be included directly above the signature block of the
+                certifying adult
+                “The person signing is furnishing true information and to advise that person that
+                the application is being made in connection with the receipt of Federal funds;
+                School officials may verify the information on the application; and
+                Deliberate misrepresentation of the information may subject the applicant to
+                prosecution under State and Federal statutes.”
+            </p>
+            <p>
+                <strong>Children’s Racial & Ethnic Identities Question</strong> –an answer is not required
+                We are required to ask for information about your children’s race and ethnicity.
+                This information is important and helps to make sure we are fully serving our
+                community. Responding to this section is optional and does not affect your
+                children’s eligibility for free or reduced price meals.
+                <ul>
+                    <li>Ethnicity (check one): Hispanic or Latino, Not Hispanic or Latino</li>
+                    <li>
+                        Race (check one or more): American Indian or Alaskan Native,
+                        Asian, Black or African American, Native Hawaiian or Other Pacific
+                        Islander, White
+                    </li>
+                </ul>
+            </p>
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <a href="~/Home/Application/@Model" type="button" class="btn btn-primary btn-lg btn-block">Start Application</a>
+
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+
+        </div>
+    </div> @*End EatApp Div*@
+</div> @*End Well Div*@
+
+
+
+<script type="text/javascript">
+
+    $(function () {
+        $(".div-Steps").hide();
+        $("#LoaderDiv").slideUp("slow", function () {
+            $("#EatApp").removeClass("hideDiv");
+            $("#divStep0").slideDown("slow", function () { });
+        });
+    });
+
+</script>
+
+
+
+

@@ -1,0 +1,23 @@
+﻿@using Application.ViewModel;
+
+@model List<NameValueViewModel>
+@{
+    ViewBag.Title = "Index";
+}
+
+<br />
+<br />
+<div class="StepHeader">Administration</div>
+<div class="well background-well">
+    
+    <ul class="nav nav-pills nav-stacked">
+        @*<li role="presentation"><a href="/Admin/AllApplications">Completed SLP Applications and Data Extract</a></li>*@
+        <li role="presentation"><a href="/Admin/Extracts">Data Extract</a></li>
+        @foreach (NameValueViewModel list in Model)
+        {
+            <li role="presentation"><a href="/Admin/List/@list.NameWithoutBlanks">@list.Name</a></li>
+        }
+    </ul>
+</div>
+
+

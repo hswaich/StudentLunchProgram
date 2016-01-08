@@ -1,0 +1,87 @@
+﻿
+<div class="headerDiv">Children</div>
+ <div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Child Name</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: Children">
+            <tr>
+                <td>
+
+                    <div class="row">
+                        <div class="col-md-7">
+                            <span data-bind="text: DisplayName"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <div data-bind="foreach: ChildAttributes">
+                                <div data-bind="if: SelectedItem">
+                                    <span data-bind="text: Name"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<div data-bind="visible: IsStep2Required() && AssistanceProgramSelectedName()!= ''">
+    <div class="headerDiv">Assistance Program</div>
+    Assistance Program: <span data-bind="text: AssistanceProgramSelectedName"></span>       
+    <br />
+    Case Number: <span data-bind="text: AssistanceProgramCaseNumber"></span>
+</div>
+
+
+<div data-bind="visible: IsStep3Required">
+    <div class="headerDiv">Income</div>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Total Income</th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: Children">
+                <tr>
+                    <td>
+                        <span data-bind="text: DisplayName"></span>
+                    </td>
+                    <td>
+                        <span data-bind="text: TotalIncomeReported"></span>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody data-bind="foreach: Adults">
+                <tr>
+                    <td>
+                        <span data-bind="text: DisplayName"></span>
+                    </td>
+                    <td>
+                        <span data-bind="text: TotalIncomeReported"></span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+  
+    Total Household Members (Children and Adults): <span data-bind="text:TotalMembers"></span> <br />
+    Last Four Digits of Social Security Number (SSN): <span data-bind="text:MemberLastFourSSN"></span> <br />
+    No SSN Flag: <span data-bind="visible:NoSSN"><i class="fa fa-check-square"></i></span>
+</div>
+
+<div class="headerDiv">Contact Information</div>
+<address>
+    <span data-bind="text: AdultFilledByName"></span> <br />
+    <span data-bind="text: StreetAddress"></span> <span data-bind="text: AptNo"></span><br />
+    <span data-bind="text: City"></span> <span data-bind="text: State"></span> <span data-bind="text: Zip"></span> <br />
+    Phone: <span data-bind="text: Phone"></span> <br />
+    Email: <span data-bind="text: Email"></span>    
+</address>

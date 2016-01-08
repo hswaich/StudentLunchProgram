@@ -1,0 +1,107 @@
+﻿@{
+    ViewBag.Title = "All Completed Applications";
+}
+
+<ol class="breadcrumb">
+    <li><a href="/Admin/Index">Administration</a></li>
+    <li class="active">@ViewBag.Title</li>
+</ol>
+<h2>@ViewBag.Title</h2>
+
+<br />
+<br />
+
+<div class="well background-well">
+    <div id="LoaderDiv">
+        <div class="row">
+            <div class="col-lg-offset-5 col-md-1">
+                <i class="fa fa-cog fa-spin fa-2x"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="div-Steps" id="divStep1">
+        <div class="btn-toolbar" role="toolbar">
+            <div class="btn-group" role="group">
+                <a href="\Admin\Excel" class="btn btn-default" title="excel" data-toggle="tooltip" data-placement="bottom">
+                    <i class="fa fa-file-excel-o fa-2x"></i>
+                </a>
+                <a href="\Admin\CSV" class="btn btn-default" title="csv" data-toggle="tooltip" data-placement="bottom">
+                    <i class="fa fa-file-text-o fa-2x"></i>
+                </a>
+            </div>
+        </div>
+
+            <table class="table table-hover table-condensed">
+                <thead>
+                    <tr>
+                        <th>Completed Date</th>
+                        <th>Children</th>
+                        <th>Adults</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach: AppMembers">
+                    <tr>
+                        <td style="width: 20%"><span data-bind="text: CompletedDate"></span></td>
+                        <td style="width: 35%"><span data-bind="text: Children"></span></td>
+                        <td style="width: 35%"><span data-bind="text: Adults"></span></td>
+                        <td style="width: 10%"><button class="btn btn-warning btn-xs" data-bind="click: $root.previewAdminApp"><i class="fa fa-th-large"></i> Preview</button></td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+      
+    </div>
+    <div class="modal fade" id="PreviewModal" tabindex="-1" role="dialog" aria-labelledby="PreviewModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    @Html.Partial("Preview")
+                </div>
+                <div class="row">
+                    <div class="col-md-offset-10 col-md-1">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times-circle"></i> Close</button>
+                    </div>
+                </div>
+                <br />
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+        $(".div-Steps").hide();
+
+        //random guid for init
+        $.getJSON('/Admin/AllMembers/8D35AD8E-8F50-4FE1-93CC-0D46CCB87F3B', function (json) {
+            //console.log(json);
+            //ko.applyBindings(new appsModel(json));
+            ko.applyBindings(new ApplicationModel(json));
+            $("#LoaderDiv").slideUp("slow", function () {
+                $("#divStep1").slideDown("slow", function () { });
+            });
+        });
+
+    });
+
+    var appsModel = function (appData) {
+        var self = this;
+        ko.mapping.fromJS(appData, {}, self);
+    }
+
+
+   //$(function () {
+   //     $.getJSON('/Home/GetApplication/8D35AD8E-8F50-4FE1-93CC-0D46CCB87F3B', function (json) {
+   //         //console.log(json);
+   //         ko.applyBindings(new ApplicationModel(json));
+
+   //     });
+   // });
+
+</script>

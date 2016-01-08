@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "Extracts";
+}
+<ol class="breadcrumb navbar-color">
+    <li><a href="/Admin/Index">Administration</a></li>
+    <li class="breadcrumb-active">@ViewBag.Title</li>
+</ol>
+
+
+<div class="well background-well">
+    <div id="LoaderDiv">
+        <div class="row">
+            <div class="col-lg-offset-5 col-md-1">
+                <i class="fa fa-cog fa-spin fa-2x"></i>
+            </div>
+        </div>
+    </div>
+   
+    <div class="StepHeader">Downloads</div>
+    <div class="div-Steps" id="divStep1">
+        
+        <br />
+
+        <a href="\Admin\Excel">
+            <i class="fa fa-file-excel-o fa-3x glyphicon-button" title="Excel" data-toggle="tooltip" data-placement="bottom"></i>
+        </a>
+
+        <a href="\Admin\CSV">
+            <i class="fa fa-file-text-o fa-3x glyphicon-button" title="CSV" data-toggle="tooltip" data-placement="bottom"></i>
+        </a>
+
+        @*<a href="\Admin\CSV">Export to csv</a>
+        <a href="\Admin\Excel">Export to Excel</a>*@
+
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+        $("#LoaderDiv").slideUp("slow", function () {
+                    $("#divStep1").slideDown("slow", function () { });
+                });
+
+        //$(".div-Steps").hide();
+
+        //$.getJSON('/Admin/AllMembers', function (json) {
+        //    //console.log(json);
+        //    ko.applyBindings(new appsModel(json));
+        //    $("#LoaderDiv").slideUp("slow", function () {
+        //        $("#divStep1").slideDown("slow", function () { });
+        //    });
+        //});
+
+    });
+
+
+
+
+</script>
+

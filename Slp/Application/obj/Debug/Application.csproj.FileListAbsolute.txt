@@ -1,0 +1,12 @@
+C:\Users\swaich\documents\visual studio 2015\Projects\Slp\Application\bin\Debug\Application.dll
+C:\Users\swaich\documents\visual studio 2015\Projects\Slp\Application\bin\Debug\Application.pdb
+C:\Users\swaich\documents\visual studio 2015\Projects\Slp\Application\bin\Debug\Domain.dll
+C:\Users\swaich\documents\visual studio 2015\Projects\Slp\Application\bin\Debug\Domain.pdb
+C:\Users\swaich\documents\visual studio 2015\Projects\Slp\Application\obj\Debug\Application.csprojResolveAssemblyReference.cache
+C:\Users\swaich\documents\visual studio 2015\Projects\Slp\Application\obj\Debug\Application.dll
+C:\Users\swaich\documents\visual studio 2015\Projects\Slp\Application\obj\Debug\Application.pdb
+C:\Users\swaich\documents\visual studio 2015\Projects\Slp\Application\bin\Debug\EntityFramework.dll
+C:\Users\swaich\documents\visual studio 2015\Projects\Slp\Application\bin\Debug\EntityFramework.xml
+c:\Users\swaich\documents\visual studio 2015\Projects\Slp\Application\bin\Debug\Application.dll.config
+c:\Users\swaich\documents\visual studio 2015\Projects\Slp\Application\bin\Debug\EntityFramework.SqlServer.dll
+c:\Users\swaich\documents\visual studio 2015\Projects\Slp\Application\bin\Debug\EntityFramework.SqlServer.xml

@@ -1,0 +1,250 @@
+﻿
+@{
+    ViewBag.Title = "knockoutTest";
+}
+
+<h2>knockoutTest</h2>
+@*<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/knockout-validation/1.0.2/knockout.validation.min.js"></script>*@
+@*<script id="customMessageTemplate" type="text/html">
+    <em class="customMessage" data-bind='validationMessage: field'></em>
+</script>
+<fieldset>
+    <legend>User: <span data-bind='text: errors().length'></span> errors</legend>
+    <label>First name: <input data-bind='value: firstName' /></label>
+    <label>Last name: <input data-bind='value: lastName' /></label>
+    <div data-bind='validationOptions: { messageTemplate: "customMessageTemplate" }'>
+        <label>Email: <input data-bind='value: emailAddress'  /></label>
+        <label>Location: <input data-bind='value: location' /></label>
+        <label>Age: <input data-bind='value: age' required /></label>
+    </div>
+    <label>
+        Subscriptions:
+        <select data-bind='value: subscription, options: subscriptionOptions, optionsCaption: "Choose one..."'></select>
+    </label>
+    <label>Password: <input data-bind='value: password' type="password" /></label>
+    <label>Retype password: <input data-bind='value: confirmPassword' type="password" /></label>
+    <label>10 + 1 = <input data-bind='value: captcha' /></label>
+</fieldset>
+<button type="button" data-bind='click: submit'>Submit</button>
+<br />
+<br />
+<button type="button" data-bind='click: requireLocation'>Make 'Location' required</button>
+
+<style type="text/css">
+    label { display: block; }
+.validationMessage { color: Red; }
+.customMessage { color: Orange; }
+
+</style>
+<script type="text/javascript">
+
+    ko.validation.rules.pattern.message = 'Invalid.';
+
+
+    ko.validation.configure({
+        registerExtenders: true,
+        messagesOnModified: true,
+        insertMessages: true,
+        parseInputAttributes: true,
+        messageTemplate: null
+    });
+
+
+    var captcha = function (val) {
+        return val == 11;
+    };
+
+    var mustEqual = function (val, other) {
+        return val == other();
+    };
+
+    var viewModel = {
+        firstName: ko.observable().extend({ minLength: 2, maxLength: 10 }),
+        lastName: ko.observable().extend({ required: true }),
+        emailAddress: ko.observable().extend({  // custom message
+            required: { message: 'Please supply your email address.' }
+        }),
+        age: ko.observable().extend({ min: 1, max: 100 }),
+        location: ko.observable(),
+        subscriptionOptions: ['Technology', 'Music'],
+        subscription: ko.observable().extend({ required: true }),
+        password: ko.observable(),
+        captcha: ko.observable().extend({  // custom validator
+            validation: { validator: captcha, message: 'Please check.' }
+        }),
+        submit: function () {
+            if (viewModel.errors().length == 0) {
+                alert('Thank you.');
+            } else {
+                alert('Please check your submission.');
+                viewModel.errors.showAllMessages();
+            }
+        }
+    };
+
+    viewModel.confirmPassword = ko.observable().extend({
+        validation: { validator: mustEqual, message: 'Passwords do not match.', params: viewModel.password }
+    }),
+
+    viewModel.errors = ko.validation.group(viewModel);
+
+    viewModel.requireLocation = function () {
+        viewModel.location.extend({ required: true });
+    };
+
+    ko.applyBindings(viewModel);
+
+</script>*@
+
+<script id="customMessageTemplate" type="text/html">
+    <!--
+    -->
+    <em class="customMessage" data-bind="validationMessage: field"></em>
+</script>
+
+<fieldset>
+    <legend class="well">
+        User: <strong data-bind="text: errors().length"></strong> errors
+    </legend>
+
+    <div class="row">
+        <label>First name:</label>
+        <input type="text" data-bind="textInput: firstName" />
+    </div>
+
+    <div class="row">
+        <label>Last name:</label>
+        <input data-bind="value: lastName" />
+    </div>
+
+    <div class="row" data-bind="validationOptions: { messageTemplate: 'customMessageTemplate' }">
+        <div class="row">
+            <label>Email:</label>
+            <input data-bind="value: emailAddress" required="required"  />
+        </div>
+        <div class="row">
+            <label>Location:</label>
+            <input data-bind="value: location" />
+        </div>
+        <div class="row">
+            <label>Age:</label>
+            <input data-bind="value: age" required="required" />
+        </div>
+    </div>
+
+    <div class="row">
+        <label>Subscriptions:</label>
+        <select data-bind="value: subscription, options: subscriptionOptions, optionsCaption: 'Choose one...'"></select>
+    </div>
+
+    <div class="row">
+        <label>Password:</label>
+        <input data-bind="value: password" type="password" />
+    </div>
+
+    <div class="row">
+        <label>Retype password:</label>
+        <input data-bind="value: confirmPassword" type="password" />
+    </div>
+
+    <div class="row">
+        <label>10 + 1 = </label>
+        <input data-bind='value: captcha' />
+    </div>
+</fieldset>
+
+<fieldset>
+    <button type="button" data-bind='click: submit'>Submit</button>
+    &nbsp;
+    <button type="button" data-bind='click: reset'>Reset</button>
+    &nbsp;
+    <button type="button" data-bind='click: requireLocation'>Make 'Location' required</button>
+</fieldset>
+
+<style type="text/css">
+   
+
+</style>
+
+<script type="text/javascript">
+
+    ko.validation.rules.pattern.message = 'Invalid.';
+
+    ko.validation.init({
+        registerExtenders: true,
+        messagesOnModified: true,
+        insertMessages: true,
+        parseInputAttributes: true,
+        messageTemplate: null
+    }, true);
+
+
+    var captcha = function (val) {
+        return val == 11;
+    };
+
+    var mustEqual = function (val, other) {
+        return val == other;
+    };
+
+    var viewModel = {
+        firstName: ko.observable().extend({ minLength: 2, maxLength: 10 }),
+        lastName: ko.observable().extend({ required: true }),
+        emailAddress: ko.observable().extend({
+            // custom message
+            required: {
+                message: 'Please supply your email address.'
+            }
+        }),
+        age: ko.observable().extend({ min: 1, max: 100 }),
+        location: ko.observable(),
+        subscriptionOptions: ['Technology', 'Music'],
+        subscription: ko.observable().extend({ required: true }),
+        password: ko.observable(),
+        captcha: ko.observable().extend({
+            // custom validator
+            validation: {
+                validator: captcha,
+                message: 'Please check.'
+            }
+        }),
+        submit: function () {
+            if (viewModel.errors().length === 0) {
+                alert('Thank you.');
+            }
+            else {
+                alert('Please check your submission.');
+                viewModel.errors.showAllMessages();
+            }
+        },
+        reset: function () {
+            Object.keys(viewModel).forEach(function (name) {
+                if (ko.isWritableObservable(viewModel[name])) {
+                    viewModel[name](undefined);
+                }
+            });
+            if (ko.validation.utils.isValidatable(viewModel.location)) {
+                viewModel.location.rules.removeAll();
+            }
+            viewModel.errors.showAllMessages(false);
+        }
+    };
+
+    viewModel.confirmPassword = ko.observable().extend({
+        validation: {
+            validator: mustEqual,
+            message: 'Passwords do not match.',
+            params: viewModel.password
+        }
+    });
+
+    viewModel.errors = ko.validation.group(viewModel);
+
+    viewModel.requireLocation = function () {
+        viewModel.location.extend({ required: true });
+    };
+
+    ko.applyBindings(viewModel);
+
+
+</script>

@@ -1,0 +1,225 @@
+﻿@using Application.ViewModel;
+@model NameValueViewModel
+@{
+    ViewBag.Title = Model.Name;
+}
+<ol class="breadcrumb navbar-color">
+    <li><a href="/Admin/Index">Administration</a></li>
+    <li class="breadcrumb-active">@ViewBag.Title</li>
+</ol>
+
+<div class="well background-well">
+    <div id="LoaderDiv">
+        <div class="row">
+            <div class="col-lg-offset-5 col-md-1">
+                <i class="fa fa-cog fa-spin fa-2x"></i>
+            </div>
+        </div>
+    </div>
+
+    <div id="errorDiv" class="alert alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>Error(s):</strong>
+        <ul data-bind="foreach: StepErrors">
+            <li data-bind="text: $data"></li>
+        </ul>
+    </div> 
+
+    <div id="successDiv"  class="alert" role="alert">
+        <i class="fa fa-check-circle"></i> <strong>Success!</strong>
+        Your changes have been saved.
+    </div>
+    <div class="StepHeader">@ViewBag.Title</div>
+    <div class="div-Steps" id="divStep1">
+        <form>
+            <div class="table-responsive">
+                <button class="btn btn-danger btn-sm" data-bind='click: addRecord'><i class="fa fa-plus-circle"></i> Add Record</button> <br /><br />
+                <table data-bind='visible: TableValues().length > 0'>
+                    <thead>
+                        <tr>
+                            <th class="label-white">Name</th>
+                            <th></th>
+                            <th class="label-white">Visible</th> 
+                            <th data-bind="if:IsIncomeQuestions"></th>
+                            <th data-bind="if:IsIncomeQuestions">Question Type</th>                
+                        </tr>
+                    </thead>
+                    <tbody data-bind='foreach: TableValues'>
+                        <tr>
+                            <td>
+                                <input style="width: 500px;" class="form-control" data-bind='value: Name' maxlength="500" />
+                            </td>
+                            <td style="width:10%;"></td>
+                            <td>                                
+                                <input type="checkbox" data-bind="checked: SelectedItem, attr:{ id: cboxId, name: cboxId }" class="with-font" />
+                                <label data-bind="attr:{ for: cboxId}" class="css-label" style="display: inline-block"> </label>
+                            </td>   
+                            <td style="width:10%;" data-bind="if:$root.IsIncomeQuestions" ></td>
+                            <td data-bind="if:$root.IsIncomeQuestions"><input class="form-control input-sm" data-bind='value: Type' maxlength="50" /></td>                        
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <button class="btn btn-info" data-bind='click: save'>Save Changes</button>
+            </div>
+           
+        </form>
+
+    </div>
+</div>
+
+
+
+
+<script type="text/javascript">
+  
+
+    var viewModel = function (appData) {
+        var counter = 100;
+        var self = this;
+        ko.mapping.fromJS(appData, {}, self);
+        self.StepErrors = ko.observableArray();
+        self.IsIncomeQuestions = ko.computed(function () {
+            return self.ListId() == 6 || self.ListId() == 7;
+        }, this);
+
+
+        self.addRecord = function () {
+            counter++;
+                self.TableValues.push({
+                    Name: "",
+                    SelectedItem: false,
+                    Type: "",
+                    cboxId: "cb" + counter
+                });
+        };
+
+        self.save = function () {
+            var IsValid = true;
+            ko.utils.arrayForEach(self.TableValues(), function (row) {
+                if (row.Name == null || row.Name == "") {
+                    IsValid = false;
+                    self.StepErrors.push('Name is required.');
+                }
+            });
+
+            if (self.IsIncomeQuestions())
+            {
+                ko.utils.arrayForEach(self.TableValues(), function (row) {
+                    if (row.Type == null || row.Type == "") {
+                        IsValid = false;
+                        self.StepErrors.push('Income Type is required.');
+                    }
+                });
+            }
+
+            if (IsValid)
+            {
+                $.ajax({
+                    method: "POST",
+                    url: "/Admin/SaveListViewModel",
+                    data: ko.toJSON(self),
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8"
+                }).done(function (json) {
+                    ko.mapping.fromJS(json, {}, self);
+                    self.StepSuccessShow();
+                });               
+            }
+            else {
+                self.StepErrorsShow();
+            }
+            console.log(IsValid);    
+        };
+        
+        self.StepErrorsClear = function () {
+            $("#errorDiv").hide();
+            self.StepErrors.removeAll();
+        };
+
+        self.StepErrorsShow = function () {
+            $("#errorDiv").fadeTo(4000, 500).slideUp(500, function () {
+                self.StepErrorsClear();
+            });
+        };
+
+        self.StepSuccessShow = function () {
+            self.StepErrorsClear();
+            $("#successDiv").fadeTo(4000, 500).slideUp(500, function () {
+                self.StepSuccessClear();
+            });
+        };
+
+        self.StepSuccessClear = function () {            
+            $("#successDiv").hide();
+        };
+    }
+
+    $(function () {
+     
+        $(".div-Steps").hide();
+        $("#errorDiv").hide();
+        $("#successDiv").hide();
+        $.getJSON('/Admin/ListViewModel/@Model.Value', function (json) {
+            //console.log(json);
+            $("#errorDiv").addClass("alert-danger");
+            $("#successDiv").addClass("alert-success");
+            
+            ko.applyBindings(new viewModel(json));
+            $("#LoaderDiv").slideUp("slow", function () {
+                $("#divStep1").slideDown("slow", function () { });
+            });
+        });
+
+    });
+   
+</script>
+
+<style type="text/css">
+    input[type=radio].with-font,
+    input[type=checkbox].with-font {
+        border: 0;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+    }
+
+        input[type=radio].with-font ~ label:before,
+        input[type=checkbox].with-font ~ label:before {
+            font-family: FontAwesome;
+            display: inline-block;
+            content: "\f1db";
+            letter-spacing: 10px;
+            font-size: 2em;
+            color: #535353;
+            width: 1.4em;
+        }
+
+        input[type=radio].with-font:checked ~ label:before,
+        input[type=checkbox].with-font:checked ~ label:before {
+            content: "\f00c";
+            font-size: 2em;
+            color: white;
+            letter-spacing: 5px;
+        }
+
+        input[type=checkbox].with-font ~ label:before {
+            content: "\f096";
+        }
+
+        input[type=checkbox].with-font:checked ~ label:before {
+            content: "\f046";
+            color: white;
+        }
+
+        input[type=radio].with-font:focus ~ label:before,
+        input[type=checkbox].with-font:focus ~ label:before,
+        input[type=radio].with-font:focus ~ label,
+        input[type=checkbox].with-font:focus ~ label {
+            color: black;
+        }
+</style>

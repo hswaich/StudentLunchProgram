@@ -1,0 +1,12 @@
+C:\Users\swaich\documents\visual studio 2015\Projects\Slp\Application\bin\Release\Application.dll.config
+C:\Users\swaich\documents\visual studio 2015\Projects\Slp\Application\bin\Release\Application.dll
+C:\Users\swaich\documents\visual studio 2015\Projects\Slp\Application\bin\Release\Application.pdb
+C:\Users\swaich\documents\visual studio 2015\Projects\Slp\Application\bin\Release\Domain.dll
+C:\Users\swaich\documents\visual studio 2015\Projects\Slp\Application\bin\Release\EntityFramework.dll
+C:\Users\swaich\documents\visual studio 2015\Projects\Slp\Application\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\swaich\documents\visual studio 2015\Projects\Slp\Application\bin\Release\Domain.pdb
+C:\Users\swaich\documents\visual studio 2015\Projects\Slp\Application\bin\Release\EntityFramework.xml
+C:\Users\swaich\documents\visual studio 2015\Projects\Slp\Application\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\swaich\documents\visual studio 2015\Projects\Slp\Application\obj\Release\Application.csprojResolveAssemblyReference.cache
+C:\Users\swaich\documents\visual studio 2015\Projects\Slp\Application\obj\Release\Application.dll
+C:\Users\swaich\documents\visual studio 2015\Projects\Slp\Application\obj\Release\Application.pdb

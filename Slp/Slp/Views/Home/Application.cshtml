@@ -1,0 +1,738 @@
+﻿@model Guid
+@{
+    ViewBag.Title = "Application";
+}
+<br />
+<br />
+<div class="well background-well">
+    <div id="LoaderDiv">
+        <div class="row">
+            <div class="col-lg-offset-5 col-md-1">
+                <i class="fa fa-cog fa-spin fa-2x fa-color-white"></i>
+            </div>
+        </div>
+    </div>
+   
+    <div id="EatApp" data-bind="AppViewModel" class="hideDiv">
+        @*<button data-bind="click: StepsRequired">steps list</button>
+            <button data-bind="click: StepForwardTest">Steps Forard</button>
+                <button data-bind="click: StepBackTest">Steps Back</button>*@
+
+        @*Application Id: <span data-bind="text: Id"></span>  <br />*@
+        <div class="alert alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Error(s):</strong>
+            <ul data-bind="foreach: StepErrors">
+                <li data-bind="text: $data"></li>
+            </ul>
+        </div>  
+
+        <div id="divStep1" class="div-Steps">
+            <div class="StepHeader">List all Household Members who are infants, children, and students up to and including grade 12</div>
+           
+            <div class="well">
+                <div class="row">
+                    <div class="col-md-10">
+                        <strong>Children</strong> <a id="popoverChildren" data-trigger="hover"><i class="fa fa-info-circle"></i></a> 
+                         
+                    </div>
+                    <div class="col-md-2">
+                        <button data-bind="click: childMemberAdd, disable: childFormEditMode" class="btn btn-primary">Add Child Member <i class="fa fa-child"></i></button>
+                        
+                    </div>
+                </div>
+                <form id="childForm">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Child Name</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody data-bind="foreach: Children">
+                                <tr>
+                                    <td>
+                                        <div data-bind="if: IsRowInEditMode">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <input type="text" class="form-control input-sm" data-bind="value:FirstName" maxlength="80" placeholder="First Name" />
+                                                    <span class="text-danger bold-text FirstNameError"></span>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <input type="text" class="form-control input-sm" data-bind="value:MiddleInitial, visible:IsRowInEditMode" maxlength="1" placeholder="MI" />
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <input type="text" class="form-control input-sm" data-bind="value:LastName" maxlength="80" placeholder="Last Name" />
+                                                    <span class="text-danger bold-text LastNameError"></span>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div data-bind="foreach: ChildAttributes">
+                                                        <input type="checkbox" data-bind="checkedValue: Value, checked: SelectedItem" /> <label><span data-bind="text: Name"></span></label>
+                                                        <br />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div data-bind="ifnot: IsRowInEditMode">
+                                            <div class="row">
+                                                <div class="col-md-7">
+                                                    <span data-bind="text: DisplayName"></span>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div data-bind="foreach: ChildAttributes">
+                                                        <div data-bind="if: SelectedItem">
+                                                            <span data-bind="text: Name"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        @*<i class="fa fa-pencil-square fa-2x glyphicon-button text-success" data-bind="click: $root.childMemberEdit, visible: !$root.childFormEditMode()" title="Edit"></i>
+                                        <i class="fa fa-trash-o fa-2x glyphicon-button" data-bind="click: $root.childMemberRemove, visible: !$root.childFormEditMode()" title="Remove"></i>*@
+                                        <div class="pull-right">
+                                            <button class="btn btn-success btn-sm" data-bind="click: $root.childMemberEdit, visible: !$root.childFormEditMode()" title="Edit"><i class="fa fa-pencil-square"></i></button>
+                                            <button class="btn btn-warning btn-sm" data-bind="click: $root.childMemberRemove, visible: !$root.childFormEditMode()" title="Remove"><i class="fa fa-trash-o"></i></button>
+                                        </div>
+                                        <div data-bind="if: IsRowInEditMode" class="inline-div">
+                                            @*<i class="fa fa-floppy-o fa-2x glyphicon-button" data-bind="click: $root.childMemberSave, visible: $root.childFormEditMode()" title="Save"></i>*@
+                                            <button class="btn btn-success btn-sm" data-bind="click: $root.childMemberSave, visible: $root.childFormEditMode()" title="Save"><i class="fa fa-floppy-o"></i></button>
+                                        </div>
+                                        <div data-bind="if: IsNewRow" class="inline-div">
+                                            @*<i class="fa fa-close fa-2x glyphicon-button" data-bind="click: $root.childMemberCancelEdit, visible: $root.childFormEditMode()" title="Cancel"></i>*@
+                                            <button class="btn btn-danger btn-sm" data-bind="click: $root.childMemberCancelEdit, visible: $root.childFormEditMode()" title="Cancel"><i class="fa fa-close"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="pull-right">
+                        <button data-bind="click: step1Continue, enable: IsStep1Valid" class="btn btn-info">Continue <i class="fa fa-chevron-circle-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="divStep2" class="div-Steps">
+            <div class="StepHeader">Do any Household Members currently participate in one or more of the following assistance programs.</div>
+            <div class="well">
+                <strong>Please select one.</strong> <a id="popoverAP" data-trigger="hover"><i class="fa fa-info-circle"></i></a>
+                <div data-bind="foreach: AssistancePrograms">
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="assistancePrograms" data-bind="checked: $root.AssistanceProgramId, checkedValue: Value, event: { change: $root.AssistanceProgramIdChanged}">
+                            <span data-bind="text: Name"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div data-bind="visible: AssistanceProgramIsRequired">
+                        <label for="childCaseNumber">Case Number</label>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <input type="text" class="form-control input-sm" placeholder="Case Number" data-bind="value: AssistanceProgramCaseNumber, event: { change: $root.AssistanceProgramIdChanged, blur: $root.AssistanceProgramIdChanged}" maxlength="100" id="CaseNumberField" />
+                            </div>
+                        </div>
+                    </div>
+                    <span id="CaseNumberFieldError" class="text-danger bold-text"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="pull-right">
+                        <button data-bind="click: step2Back" class="btn btn-warning"><i class="fa fa-chevron-circle-left"></i> Back</button>
+                        <button data-bind="click: step2Continue, enable: IsStep2Valid" class="btn btn-info">Continue <i class="fa fa-chevron-circle-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="divStep3" class="div-Steps">
+            <div class="StepHeader">Report Income for all Household Members</div>
+            <div class="well">
+                <div class="row">
+                    <div class="col-md-12">
+                        <strong>Child Income</strong> <a id="popoverChildIncome" data-trigger="hover"><i class="fa fa-info-circle"></i></a>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Child Name</th>
+                                <th>Total Income Reported</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach: Children">
+                            <tr>
+                                <td>
+                                    <span data-bind="text: DisplayName"></span>
+                                </td>
+                                <td>
+                                    <div data-bind="if: IsIncomeCompleted">
+                                        <span data-bind="text: TotalIncomeReported"></span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="pull-right">
+                                        <div data-bind="if: IsIncomeCompleted">
+                                            <button class="btn btn-success btn-sm" data-bind="click: $root.MemberIncome"><i class="fa fa-check-circle-o"></i> Income</button>
+                                        </div>
+                                        <div data-bind="ifnot: IsIncomeCompleted">
+                                            <button class="btn btn-danger btn-sm" data-bind="click: $root.MemberIncome"><i class="fa fa-exclamation-triangle"></i> Income Required</button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="well">
+                <div class="row">
+                    <div class="col-md-10">
+                        <strong>Adult Members</strong> <a id="popoverAdultMembers" data-trigger="hover"><i class="fa fa-info-circle"></i></a>
+                        @*<strong>Adult Income</strong> <a id="popoverAdultIncome" data-trigger="hover"><i class="fa fa-info-circle"></i></a>*@
+                    </div>
+                    <div class="col-md-2">
+                        <button data-bind="click: adultMemberAdd" class="btn btn-primary">Add Adult Member <i class="fa fa-male"></i></button>
+                    </div>
+                </div>
+                <form id="adultForm">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Adult Name</th>
+                                    <th>Total Income Reported</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody data-bind="foreach: Adults">
+                                <tr>
+                                    <td style="width:42%">
+                                        <div data-bind="if: IsRowInEditMode">
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                    <input type="text" class="form-control" data-bind="value:FirstName" maxlength="80" placeholder="First Name" />
+                                                    <span class="text-danger bold-text FirstNameError"></span>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input type="text" class="form-control" data-bind="value:MiddleInitial, visible:IsRowInEditMode" maxlength="1" placeholder="MI" />
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <input type="text" class="form-control" data-bind="value:LastName" maxlength="80" placeholder="Last Name" />
+                                                    <span class="text-danger bold-text LastNameError"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div data-bind="ifnot: IsRowInEditMode">
+                                            <span data-bind="text: DisplayName"></span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div data-bind="if: IsIncomeCompleted">
+                                            <span data-bind="text: TotalIncomeReported"></span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="pull-right">
+                                           
+                                            <button class="btn btn-success btn-sm" data-bind="click: $root.adultMemberEdit, visible: !$root.adultFormEditMode()" title="Edit Name"> <i class="fa fa-pencil-square"></i> </button>
+                                            <button class="btn btn-warning btn-sm" data-bind="click: $root.adultMemberRemove, visible: !$root.adultFormEditMode()" title="Remove Adult"><i class="fa fa-trash-o"></i></button>
+                                            @*<i class="fa fa-pencil-square fa-2x glyphicon-button text-success" data-bind="click: $root.adultMemberEdit, visible: !$root.adultFormEditMode()" title="Edit"></i>*@
+                                            @*<i class="fa fa-trash-o fa-2x glyphicon-button" data-bind="click: $root.adultMemberRemove, visible: !$root.adultFormEditMode()" title="Remove"></i>*@
+
+                                            <div data-bind="if: IsRowInEditMode" class="inline-div">
+                                                <button  class="btn btn-success btn-sm" data-bind="click: $root.adultMemberSave, visible: $root.adultFormEditMode()" title="Save"><i class="fa fa-floppy-o"></i></button>
+                                                @*<i class="fa fa-floppy-o fa-2x glyphicon-button" data-bind="click: $root.adultMemberSave, visible: $root.adultFormEditMode()" title="Save"></i>*@
+                                            </div>
+                                            <div data-bind="if: IsNewRow" class="inline-div">
+                                                @*<i class="fa fa-close fa-2x glyphicon-button" data-bind="click: $root.adultMemberCancelEdit, visible: $root.adultFormEditMode()" title="Cancel"></i>*@
+                                                <button class="btn btn-danger btn-sm" data-bind="click: $root.adultMemberCancelEdit, visible: $root.adultFormEditMode()" title="Cancel"><i class="fa fa-close"></i></button>
+                                            </div>
+                                            <div data-bind="if: !$root.adultFormEditMode()" class="inline-div">
+                                                <div data-bind="if: IsIncomeCompleted">
+                                                    <button class="btn btn-success btn-sm" data-bind="click: $root.MemberIncome"><i class="fa fa-check-circle-o"></i> Income</button>
+                                                </div>
+                                                <div data-bind="ifnot: IsIncomeCompleted">
+                                                    <button class="btn btn-danger btn-sm" data-bind="click: $root.MemberIncome"><i class="fa fa-exclamation-triangle"></i> Income Required</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+            <div class="well">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Total Household Members (Children and Adults)</label> 
+                        </div>
+                        <div class="col-md-1">
+                            <input class="form-control input-sm" type="text" data-bind="value: TotalMembers,numeric: number, event:{focus: CalculateTotalIfEmpty, change: IsTotalMembersValid }" maxlength="2" />
+                        </div>
+                        <div class="col-md-7">
+                            @*<a id="popoverCount" data-trigger="hover"><i class="fa fa-info-circle"></i></a>*@
+                            <span id="TotalMembersFieldError" class="text-danger bold-text"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Last Four Digits of Social Security Number (SSN)</label>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control input-sm" placeholder="Last Four SSN" data-bind="value: MemberLastFourSSN,numeric: number, disable: NoSsnIsChecked, event : {change: ssnChanged, blur: ssnChanged  }" maxlength="4" id="MemberSSNField" />
+                            <span id="MemberSSNFieldError" class="text-danger bold-text"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="checkbox" class="checkbox-large" data-bind="checked: NoSSN" />
+                            <label>&nbsp; Check if no SSN</label>
+                            <a id="popoverSSN" data-trigger="hover"><i class="fa fa-info-circle"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="pull-right">
+                        <button data-bind="click: step3Back" class="btn btn-warning"><i class="fa fa-chevron-circle-left"></i> Back</button>
+                        <button data-bind="click: step3Continue" class="btn btn-info">Continue <i class="fa fa-chevron-circle-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="divStep4" class="div-Steps">
+            <div class="StepHeader">Contact information and adult signature</div>
+            <div class="well">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Street Address</label>
+                            <input type="text" class="form-control input-sm" placeholder="Street Address" data-bind="value: StreetAddress" maxlength="100" />
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Apartment Number</label>
+                            <input type="text" class="form-control input-sm" placeholder="Apartment Number" data-bind="value: AptNo" maxlength="20" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>City</label>
+                            <input type="text" class="form-control input-sm" placeholder="City" data-bind="value: City, event: { change: IsCityValid  }" maxlength="100" />
+                            <span id="CityFieldError" class="text-danger bold-text"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>State</label>
+                            <input type="text" class="form-control input-sm" placeholder="State" data-bind="value: State, event: { change: IsStateValid  }" maxlength="100" />
+                            <span id="StateFieldError" class="text-danger bold-text"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Zip</label>
+                            <input type="text" class="form-control input-sm" placeholder="Zip" data-bind="value: Zip, event: { change: IsZipValid  }" maxlength="10" />
+                            <span id="ZipFieldError" class="text-danger bold-text"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Name of Adult Completing the form</label>
+                            <input type="text" class="form-control input-sm" placeholder="Name" data-bind="value: AdultFilledByName, event: { change: IsAdultFilledByNameValid  }" maxlength="200" id="AdultFilledByNameField" />
+                            <span id="AdultFilledByNameFieldError" class="text-danger bold-text"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <input type="text" class="form-control input-sm" placeholder="Phone" data-bind="value: Phone" maxlength="20" />
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="text" class="form-control input-sm" placeholder="Email" data-bind="value: Email" maxlength="50" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="StepHeader">OPTIONAL Children's Racial and Ethnic Identities</div>
+            <div class="well">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Ethnicity</label>
+                        <div data-bind="foreach: Ethnicities">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="childEthnicity" data-bind="checked: $root.EthnicityId, checkedValue: Value">
+                                    <span data-bind="text: Name"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Race (check one or more):</label>
+                        <div data-bind="foreach: Races">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" data-bind="checked: SelectedItem" />
+                                    <span data-bind="text: Name"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="pull-right">
+                        <button data-bind="click: step4Back" class="btn btn-warning"><i class="fa fa-chevron-circle-left"></i> Back</button>
+                        @*<button class="btn btn-danger" onclick="ShowPreview();"><i class="fa fa-th-large"></i> Preview</button>*@
+                        <button data-bind="click: step4Complete" class="btn btn-info">Submit Application <span class="glyphicon glyphicon-send"></span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="incomeModal" tabindex="-1" role="dialog" aria-labelledby="incomeModalLabel" data-backdrop="static" data-bind="with:ModalMemberIncome">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header navbar-color">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <div class="modal-title headerDiv" id="myModalLabel"><span data-bind="text: MemberName"></span> - Income details</div>
+                    </div>
+                    <div class="modal-body">
+
+                        <div id="IncomeAlertDiv" class="alert" role="alert">
+                            <ul data-bind="foreach: $root.StepErrors">
+                                <li data-bind="text: $data" class="bold-text"></li>
+                            </ul>
+                        </div>
+
+
+                        <div data-bind="foreach: IncomeResponses">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <span data-bind="text: QuestionText"></span>
+                                            <div data-bind="text: ResponseError" class="text-danger bold-text"></div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="radio-inline">
+                                                <input type="radio" data-bind="checked: Response, checkedValue: true, event: { change: $root.IncomeQuestionResponseChanged }"> Yes
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" data-bind="checked: Response, checkedValue: false, event: { change: $root.IncomeQuestionResponseChanged }"> No
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div data-bind="if: Response">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-md-10">
+                                                Please add all <span data-bind="text: QuestionType" class="text-primary"></span><br />
+                                                If you receive <span data-bind="text: QuestionType" class="text-primary"></span> from multiple sources, Please add multiple rows here.
+                                            </div>
+                                            <div class="col-md-2">
+                                                <button class="btn btn-info pull-right" data-bind="click: $root.MemberIncomeAdd"><i class="fa fa-plus-square"></i> Add Record</button>
+                                            </div>
+                                        </div>
+                                        <div data-bind="foreach: ResponseDetails">
+                                            <div class="row form-group">
+                                                <div class="col-md-3">
+                                                    @*<input data-bind='value: Amount,numeric: number, event:{ change: $root.IsIncomeDetailValid , blur: $root.IsIncomeDetailValid}' class="form-control"  placeholder="Amount" maxlength="5"/>*@
+
+                                                    <div class="input-group">
+                                                        <div class="input-group-addon"><i class="fa fa-usd"></i></div>
+                                                        <input data-bind='value: Amount,numeric: number, event:{ change: $root.IsIncomeDetailValid , blur: $root.IsIncomeDetailValid}' class="form-control input-sm" placeholder="Amount" maxlength="5" />
+                                                        <div class="input-group-addon">.00</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <select class="form-control input-sm" data-bind="options: $root.Frequencies, optionsCaption:'-- Select One --', optionsText: 'Name', optionsValue: 'Value', value: FrequencyId, event:{ change: $root.IsIncomeDetailValid}"></select>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <i class="fa fa-trash-o fa-2x glyphicon-button" data-bind="click: $root.MemberIncomeRemove" title="Remove"></i>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <div data-bind="text: DetailError" class="text-danger bold-text"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-bind="click: $root.MemberIncomeSave">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="PreviewModal" tabindex="-1" role="dialog" aria-labelledby="PreviewModalLabel">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                       @* @Html.Partial("Preview")*@
+                    </div>
+                    <div class="row">
+                        <div class="col-md-offset-10 col-md-1">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times-circle"></i> Close</button>  
+                        </div>
+                    </div>
+                    <br />
+                </div>
+            </div>
+        </div>
+
+
+        <div id="popoverChildrenContent" style="display: none">
+            <p>
+                <strong>Child</strong> – Anyone age 18 or under and are supported with the household‟s income; or in your care under a foster arrangement, or qualify as homeless, migrant, or runaway youth; or students attending high school grade or under, regardless of age.
+            </p>
+            <ul>
+                <li><strong>Foster</strong>- A child who is formally placed by a court or a State child welfare agency.</li>
+                <li><strong>Head Start</strong>- A child that is enrolled in a Federal Head Start or State-funded pre-kindergarten program that uses eligibility criteria that is identical or more stringent than Federal Head Start (not currently listed on the paper application).</li>
+                <li><strong>Homeless</strong>- A child identified by the Local Education Agency (LEA) homeless liaison or by an official of a homeless shelter as lacking a fixed, regular, and adequate nighttime residence.</li>
+                <li><strong>Migrant</strong>- A child identified as a migrant by the State or local Migrant Education Program coordinator or the local educational liaison, or other individual identified by FNS.</li>
+                <li><strong>Runaway</strong>- A child identified as a runaway receiving assistance under a program under the Runaway and Homeless Youth Act, by the local educational liaison, or other individual in accordance with guidance issued by FNS.</li>
+            </ul>
+        </div>       
+
+        <div id="popoverAPContent" style="display: none">
+            <p>
+                <strong>Assistance Programs</strong> - Receipt of benefits by or participation of any household member from certain Assistance Programs conveys eligibility for free school meals to all children in the household. When certifying eligibility based on participation in these programs, determinations must be made with appropriate case numbers submitted on the application.                
+            </p>
+            The Assistance Programs are:
+            <ul>
+                <li>
+                    Supplemental Nutrition Assistance Program (SNAP) (formerly known as food stamps)
+                </li>
+                <li>
+                    Food Distribution Program on Indian Reservations (FDPIR)
+                </li>
+                <li>
+                    Temporary Assistance for Needy Families (TANF)
+                </li>
+            </ul>
+        </div>
+
+        <div id="popoverChildIncomeContent" style="display: none">
+            <p>
+                <strong>Child income</strong> - Money received from outside the household that is paid directly to children. Examples include:
+            </p>
+            <ul>
+                <li>A child has a job where they earn a salary or wages.</li>
+                <li>A child is blind or disabled and receives Social Security benefits.</li>
+                <li>A parent is disabled, retired, or deceased, and their child receives Social Security benefits.</li>
+                <li>A friend or extended family member outside of the household regularly gives a child spending money.</li>
+                <li>A child receives income from a private pension fund, annuity, or trust.</li>
+            </ul>
+        </div>  
+
+        <div id="popoverAdultIncomeContent" style="display: none">
+            <p>
+                <strong>Adult income</strong> - Typically this should be income received during the month or year prior to the date that the application is submitted – whichever is a better reflection of the household's current annual income. If past income does not accurately reflect the household's current annual rate of income, income shall be based on the projected annual household income.
+            </p>
+            <p>Potential sources of income include:</p>
+
+            Earnings from Work
+            <ul>
+                <li>Salary, wages, cash bonuses</li>
+                <li>Net income from self-employment (farm or business)</li>
+                <li>Strike benefits</li>
+                <li>If household members are in the U.S. Military: Basic pay and cash bonuses (do NOT include combat pay, FSSA or privatized housing allowances)</li>
+                <li>Allowances for off-base housing, food, and clothing</li>
+            </ul>
+            Public Assistance/Alimony/Child Support (Should not report the value of any cash value public assistance benefits NOT listed here.)
+            <ul>
+                <li>Unemployment benefits</li>
+                <li>Worker‟s compensation</li>
+                <li>Supplemental Security Income (SSI)</li>
+                <li>Cash assistance from State or local government</li>
+                <li>Alimony payments (only if court-ordered)</li>
+                <li>Child support payments (only if court-ordered)</li>
+                <li>Veteran‟s benefits</li>
+            </ul>
+            Pensions/Retirement/All Other Income
+            <ul>
+                <li>Social Security (including railroad retirement and black lung benefits)</li>
+                <li>Private Pensions or disability</li>
+                <li>Income from trusts or estates</li>
+                <li>Annuities</li>
+                <li>Investment income</li>
+                <li>Earned interest</li>
+                <li>Rental income</li>
+                <li>Regular cash payments from outside household</li>
+            </ul>
+            <p><strong>Income fields with a ‘0’ or that are left blank are assumed to be a certification by the applicant that there is no income to report.</strong></p>
+            <p><strong>Income reported in whole dollars (no cents) and in gross amounts, meaning before taxes or deductions.</strong></p>
+        </div>
+     
+        <div id="popoverAdultMembersContent" style="display: none">
+            <p>
+                <strong>Household members</strong> - Anyone who is living with you and shares income and expenses, even if not related, and even if they do not have income of their own. This does not include people who live in the household, but are not supported by the household‟s income and do not contribute income to your household.
+            </p>
+        </div>    
+
+        <div id="popoverCountContent" style="display: none">
+            <p>
+                It is necessary to list all household members, as the size of the household determines the income cutoff for free and reduced price meals.
+            </p>
+            <p>
+                For the total household size, the number entered or confirmed MUST be equal to the number of household members named earlier in the in the application.
+            </p>
+        </div>    
+
+        <div id="popoverSSNContent" style="display: none">
+            <p>United States citizenship or immigration status is not a condition of eligibility for free and reduced price benefits.</p> 
+        </div>    
+
+    </div> @*End EatApp Div*@
+</div> @*End Well Div*@
+
+
+
+<script type="text/javascript">
+
+    $(function () {
+        $(".div-Steps").hide();
+        $(".alert").hide();
+        $.getJSON('/Home/GetApplication/@Model', function (json) {
+            //console.log(json);
+            ko.applyBindings(new ApplicationModel(json));
+            $(".alert").addClass("alert-danger");
+
+            $("#LoaderDiv").slideUp("slow", function () {
+                $("#EatApp").removeClass("hideDiv");
+                $("#divStep1").slideDown("slow", function () { });                
+            });
+        });
+    });
+
+    $(function () {
+
+        $("[data-toggle=popover]").popover();
+
+        $("#popoverChildren").popover({
+            html: true,
+            content: function () {
+                return $('#popoverChildrenContent').html();
+            },
+            title: function () {
+                return "Children";       
+            }
+        });
+
+        $("#popoverAP").popover({
+            html: true,
+            content: function () {
+                return $('#popoverAPContent').html();
+            },
+            title: function () {
+                return "Assistance Programs";
+            }
+        });
+
+        $("#popoverChildIncome").popover({
+            html: true,
+            content: function () {
+                return $('#popoverChildIncomeContent').html();
+            },
+            title: function () {
+                return "Child Income";
+            }
+        });
+
+        $("#popoverAdultIncome").popover({
+            html: true,
+            content: function () {
+                return $('#popoverAdultIncomeContent').html();
+            },
+            title: function () {
+                return "Adult Income";
+            }
+        });
+
+        $("#popoverAdultMembers").popover({
+            html: true,
+            content: function () {
+                return $('#popoverAdultMembersContent').html();
+            },
+            title: function () {
+                return "Adult Members";
+            }
+        });
+
+        $("#popoverCount").popover({
+            html: true,
+            content: function () {
+                return $('#popoverCountContent').html();
+            },
+            title: function () {
+                return "Total Member Count";
+            }
+        });
+
+        $("#popoverSSN").popover({
+            html: true,
+            content: function () {
+                return $('#popoverSSNContent').html();
+            },
+            title: function () {
+                return "SSN";
+            }
+        });
+
+
+    });
+
+    function ErrorMessageAdd(objId, message) {
+        $(objId).closest(".form-group").addClass("has-error");
+        $(objId).text(message);
+    };
+
+    function ErrorMessageClear(objId) {
+        $(objId).closest(".form-group").removeClass("has-error").removeClass("has-success");
+        $(objId).text('');
+    };
+
+    function ShowPreview() {
+        $('#PreviewModal').modal('show');
+    }
+</script>
+
+

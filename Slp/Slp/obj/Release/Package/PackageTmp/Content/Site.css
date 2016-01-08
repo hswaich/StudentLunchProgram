@@ -1,0 +1,137 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    background: url('/Images/1.png') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;  
+    
+}
+
+.bold-text {
+     font-weight: bold;
+}
+
+.glyphicon-button {
+                cursor: pointer;
+                cursor: hand;
+            }
+
+            .checkbox-large {
+                /* All browsers except webkit*/
+                transform: scale(1.5);
+                /* Webkit browsers*/
+                -webkit-transform: scale(1.5);
+            }
+
+            .grid-icon-color {
+                color: darkgrey;
+            }
+
+            .div-Steps {
+            }
+
+            .hideDiv {
+                display:none;
+            }
+
+
+.inline-div {
+   display: inline-block;
+}
+
+.validationMessage {
+    color: #f00;
+}
+.customMessage {
+    color: #FFA500;
+}
+
+.fa-info-circle:hover {
+color: orangered;
+}
+
+.popover {
+  max-width: 600px;
+  width: auto;
+}
+
+.logo {
+        color: white;
+    padding-top: 5px;
+    font-size: x-large;
+}
+
+/*.fa-file-excel-o {
+    color: darkgreen;
+}
+
+.fa-file-excel-o:hover {
+color: orange;
+}*/
+
+.background-well {
+    background-color:rgba(0, 0, 0, 0.298039);
+}
+
+.headerDiv {
+    /*background-color: #5bc0de;*/
+    color: white;
+    font-size: larger;
+    font-size: 21px;
+    padding-left: 10px;;
+    border-radius: 4px;
+}
+
+.navbar-color {
+    background-color: rgba(0, 0, 0, 0.298039);
+    border-color:rgba(0, 0, 0, 0.298039);
+}
+
+.StepHeader {
+    color: white;
+    font-family: Verdana, Arial;
+    font-size:larger;
+    padding-bottom:10px;
+    font-weight:700;
+}
+
+.fa-color-white {
+    color: white;
+}
+a {
+    color: white;
+}
+
+a:link {
+    color: white;
+}
+
+/* mouse over link */
+a:hover {
+    color: black;
+}
+
+/* selected link */
+a:active {
+    color: black;
+}
+
+.breadcrumb-active {
+    color: #E8A300;
+}
+
+.fa-cog {
+    color: white;
+}
+
+.label-white {
+    color: white;
+}

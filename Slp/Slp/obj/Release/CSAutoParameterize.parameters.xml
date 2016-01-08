@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="SlpConnection-Web.config Connection String" description="SlpConnection Connection String used in web.config by the application to access the database." defaultValue="Server=tcp:in4calpnat.database.windows.net,1433;Database=CommonRepository;User ID=cdUser@in4calpnat;Password=Mbi@1076;Trusted_Connection=False;Encrypt=True;Connection Timeout=30;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\swaich\\documents\\visual\ studio\ 2015\\Projects\\Slp\\Slp\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='SlpConnection']/@connectionString" />
+  </parameter>
+  <parameter name="DefaultConnection-Web.config Connection String" description="DefaultConnection Connection String used in web.config by the application to access the database." defaultValue="DefaultConnection_ConnectionString" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\swaich\\documents\\visual\ studio\ 2015\\Projects\\Slp\\Slp\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
+  </parameter>
+</parameters>
